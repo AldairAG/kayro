@@ -32,17 +32,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-@Entity 
-@Data 
+@Entity
+@Data
 @Table(name = "usuarios", indexes = {
-    @Index(name = "idx_email", columnList = "email"),
-    @Index(name = "idx_username", columnList = "username"),
+        @Index(name = "idx_email", columnList = "email"),
+        @Index(name = "idx_username", columnList = "username"),
 })
-@NoArgsConstructor 
-@AllArgsConstructor 
-@Builder 
-public class Usuario implements UserDetails{
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -59,14 +58,16 @@ public class Usuario implements UserDetails{
     @Column(nullable = false)
     private LocalDateTime fechaRegistro;
 
-    private boolean activo;
+    private boolean visible;
 
     @Enumerated(EnumType.STRING)
     private TipoRango rango;
 
     private Rol rol;
 
-        // Usuario que lo invitó directamente
+    private LocalDateTime createdAt;
+
+    // Usuario que lo invitó directamente
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patrocinador_id")
     private Usuario patrocinador;
@@ -75,7 +76,7 @@ public class Usuario implements UserDetails{
     @OneToMany(mappedBy = "patrocinador")
     private List<Usuario> referidosDirectos;
 
-    //RELACIONES
+    // RELACIONES
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Perfil perfil;
