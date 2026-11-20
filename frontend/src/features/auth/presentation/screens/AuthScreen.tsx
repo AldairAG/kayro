@@ -1,29 +1,51 @@
 import { useState } from 'react'
+import { useAuth } from '../hooks/useAuth'
 import ForgotPasswordScreen from './ForgotPasswordScreen'
 import LoginScreen from './LoginScreen'
 import RegisterScreen from './RegisterScreen'
 
 type AuthView = 'login' | 'register' | 'forgot-password'
 
-function AuthScreen() {
-  const [view, setView] = useState<AuthView>('login')
-  const [feedback, setFeedback] = useState('')
+type AuthScreenProps = {
+  initialView?: AuthView
+  onHome: () => void
+}
+
+function AuthScreen({ initialView = 'login', onHome }: AuthScreenProps) {
+  const [view, setView] = useState<AuthView>(initialView)
+  const [notice, setNotice] = useState('')
+  const { status, error, login, register, clearFeedback } = useAuth()
 
   function navigate(nextView: AuthView) {
-    setFeedback('')
+    setNotice('')
+    clearFeedback()
     setView(nextView)
   }
 
-  function showUnavailableMessage() {
-    setFeedback('La interfaz está lista. La conexión con el servicio de autenticación aún no está configurada.')
+  const feedback =
+    notice ||
+    (status === 'succeeded'
+      ? view === 'register'
+        ? 'Tu cuenta se creó correctamente.'
+        : 'Iniciaste sesión correctamente.'
+      : error || '')
+
+  function handleForgotPassword() {
+    setNotice('La recuperación de contraseña aún no está disponible en el servicio de autenticación.')
   }
 
   if (view === 'register') {
     return (
       <RegisterScreen
         onLogin={() => navigate('login')}
-        onSubmit={showUnavailableMessage}
+        onHome={onHome}
+        onSubmit={(credentials) => {
+          setNotice('')
+          register(credentials)
+        }}
         feedback={feedback}
+        feedbackIsError={status === 'failed' || Boolean(notice)}
+        submitting={status === 'loading'}
       />
     )
   }
@@ -32,8 +54,10 @@ function AuthScreen() {
     return (
       <ForgotPasswordScreen
         onLogin={() => navigate('login')}
-        onSubmit={showUnavailableMessage}
+        onHome={onHome}
+        onSubmit={handleForgotPassword}
         feedback={feedback}
+        feedbackIsError
       />
     )
   }
@@ -42,8 +66,14 @@ function AuthScreen() {
     <LoginScreen
       onRegister={() => navigate('register')}
       onForgotPassword={() => navigate('forgot-password')}
-      onSubmit={showUnavailableMessage}
+      onHome={onHome}
+      onSubmit={(credentials) => {
+        setNotice('')
+        login(credentials)
+      }}
       feedback={feedback}
+      feedbackIsError={status === 'failed'}
+      submitting={status === 'loading'}
     />
   )
 }

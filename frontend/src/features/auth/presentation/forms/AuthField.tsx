@@ -21,7 +21,7 @@ function AuthField({
 }: AuthFieldProps) {
   return (
     <div>
-      <label htmlFor={id} className="mb-2 block text-sm font-medium text-ink">
+      <label htmlFor={id} className="mb-2 block text-sm font-medium text-[color-mix(in_srgb,var(--primario)_15%,black)]">
         {label}
       </label>
       <input
@@ -32,7 +32,7 @@ function AuthField({
         autoComplete={autoComplete}
         minLength={minLength}
         required={required}
-        className="h-12 w-full rounded-xl border border-line bg-white px-4 text-sm text-ink outline-none transition placeholder:text-muted/65 hover:border-brand-100 focus:border-brand-700 focus:ring-4 focus:ring-brand-100"
+        className="h-12 w-full rounded-xl border border-[color-mix(in_srgb,var(--primario)_10%,white)] bg-white px-4 text-sm text-[color-mix(in_srgb,var(--primario)_15%,black)] outline-none transition placeholder:text-[color-mix(in_srgb,var(--primario)_30%,white)] hover:border-[color-mix(in_srgb,var(--primario)_12%,white)] focus:border-[color-mix(in_srgb,var(--primario)_65%,white)] focus:ring-4 focus:ring-[color-mix(in_srgb,var(--primario)_5%,white)]"
       />
     </div>
   )

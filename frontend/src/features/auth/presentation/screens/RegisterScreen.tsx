@@ -4,14 +4,30 @@ import AuthLayout from '../components/AuthLayout'
 
 type RegisterScreenProps = {
   onLogin: () => void
-  onSubmit: () => void
+  onHome: () => void
+  onSubmit: (credentials: { nombre: string; username: string; email: string; password: string }) => void
   feedback: string
+  feedbackIsError: boolean
+  submitting: boolean
 }
 
-function RegisterScreen({ onLogin, onSubmit, feedback }: RegisterScreenProps) {
+function RegisterScreen({
+  onLogin,
+  onHome,
+  onSubmit,
+  feedback,
+  feedbackIsError,
+  submitting,
+}: RegisterScreenProps) {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    onSubmit()
+    const formData = new FormData(event.currentTarget)
+    onSubmit({
+      nombre: String(formData.get('name')),
+      username: String(formData.get('username')),
+      email: String(formData.get('email')),
+      password: String(formData.get('password')),
+    })
   }
 
   return (
@@ -19,10 +35,11 @@ function RegisterScreen({ onLogin, onSubmit, feedback }: RegisterScreenProps) {
       eyebrow="Comienza hoy"
       title="Crea tu cuenta"
       description="Configura tu acceso y empieza a organizar tu negocio."
+      onHome={onHome}
       footer={
         <>
           ¿Ya tienes una cuenta?{' '}
-          <button type="button" onClick={onLogin} className="font-semibold text-brand-800 hover:text-accent-strong">
+          <button type="button" onClick={onLogin} className="font-semibold text-[color-mix(in_srgb,var(--primario)_80%,white)] hover:text-[color-mix(in_srgb,var(--secundario)_85%,black)]">
             Inicia sesión
           </button>
         </>
@@ -35,6 +52,14 @@ function RegisterScreen({ onLogin, onSubmit, feedback }: RegisterScreenProps) {
           label="Nombre completo"
           placeholder="Tu nombre"
           autoComplete="name"
+        />
+        <AuthField
+          id="register-username"
+          name="username"
+          label="Nombre de usuario"
+          placeholder="Elige un nombre de usuario"
+          autoComplete="username"
+          minLength={3}
         />
         <AuthField
           id="register-email"
@@ -54,24 +79,37 @@ function RegisterScreen({ onLogin, onSubmit, feedback }: RegisterScreenProps) {
           minLength={8}
         />
 
-        <label className="flex cursor-pointer items-start gap-2.5 pt-1 text-xs leading-5 text-muted">
+        <label className="flex cursor-pointer items-start gap-2.5 pt-1 text-xs leading-5 text-[color-mix(in_srgb,var(--primario)_45%,white)]">
           <input
             type="checkbox"
             name="terms"
             required
-            className="mt-0.5 h-4 w-4 shrink-0 rounded border-line accent-brand-800 focus:ring-brand-700"
+            className="mt-0.5 h-4 w-4 shrink-0 rounded border-[color-mix(in_srgb,var(--primario)_10%,white)] accent-[color-mix(in_srgb,var(--primario)_80%,white)] focus:ring-[color-mix(in_srgb,var(--primario)_65%,white)]"
           />
           <span>Acepto los términos de servicio y el aviso de privacidad.</span>
         </label>
 
-        {feedback && <p role="status" className="rounded-xl bg-brand-50 px-4 py-3 text-sm leading-5 text-brand-800">{feedback}</p>}
+        {feedback && (
+          <p
+            role={feedbackIsError ? 'alert' : 'status'}
+            className={`rounded-xl px-4 py-3 text-sm leading-5 ${
+              feedbackIsError
+                ? 'bg-red-50 text-red-700'
+                : 'bg-[color-mix(in_srgb,var(--primario)_5%,white)] text-[color-mix(in_srgb,var(--primario)_80%,white)]'
+            }`}
+          >
+            {feedback}
+          </p>
+        )}
 
         <button
           type="submit"
-          className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-900 px-5 text-sm font-semibold text-white shadow-lg shadow-brand-900/15 transition hover:bg-brand-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700"
+          disabled={submitting}
+          aria-busy={submitting}
+          className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[var(--primario)] px-5 text-sm font-semibold text-white shadow-lg transition hover:bg-[color-mix(in_srgb,var(--primario)_80%,white)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color-mix(in_srgb,var(--primario)_65%,white)] disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Crear cuenta
-          <span aria-hidden="true">→</span>
+          {submitting ? 'Creando cuenta…' : 'Crear cuenta'}
+          {!submitting && <span aria-hidden="true">→</span>}
         </button>
       </form>
     </AuthLayout>

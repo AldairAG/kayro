@@ -1,0 +1,35 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // 🚀 Backend Spring Boot
+            "type": "java",
+            "name": "Backend",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/backend",
+            "mainClass": "com.kayro.KayroApplication",
+            "projectName": "kayro",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+
+        },
+        {
+            "name": "Frontend - React",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:5173",
+            "webRoot": "${workspaceFolder}/frontend/src",
+            "preLaunchTask": "Iniciar Frontend"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Depurar Backend + Frontend",
+            "configurations": [
+                "Backend",
+                "Frontend - React"
+            ],
+            "stopAll": true
+        }
+    ]
+}
