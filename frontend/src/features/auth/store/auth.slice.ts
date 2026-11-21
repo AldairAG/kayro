@@ -26,6 +26,12 @@ const authSlice = createSlice({
       state.status = 'idle'
       state.error = null
     },
+    logout(state) {
+      state.token = null
+      state.user = null
+      state.status = 'idle'
+      state.error = null
+    }
   },
   extraReducers(builder) {
     for (const thunk of [loginUser, registerUser]) {
@@ -42,11 +48,11 @@ const authSlice = createSlice({
         })
         .addCase(thunk.rejected, (state, action) => {
           state.status = 'failed'
-          state.error = action.payload ?? action.error.message ?? 'La autenticación no pudo completarse.'
+          state.error = action.error ? action.error.message || 'Ocurrió un error desconocido.' : 'Ocurrió un error desconocido.'
         })
     }
   },
 })
 
-export const { clearAuthFeedback } = authSlice.actions
+export const { clearAuthFeedback, logout } = authSlice.actions
 export default authSlice.reducer

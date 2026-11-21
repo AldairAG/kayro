@@ -13,9 +13,3 @@ export type AuthResponseDto = {
   email: string
 }
 
-export type ApiResponseDto<T> = {
-  success: boolean
-  data: T | null
-  message: string | null
-  codeError: string | null
-}

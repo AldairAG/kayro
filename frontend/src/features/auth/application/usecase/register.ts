@@ -16,7 +16,8 @@ export const registerUser = createAsyncThunk<
   { rejectValue: string }
 >('auth/register', async (credentials, { rejectWithValue }) => {
   try {
-    const session = await registerRequest({ ...credentials, rol: 'USUARIO' })
+    const response = await registerRequest({ ...credentials, rol: 'USUARIO' })
+    const session = response.data
     storeAuthToken(session.token, false)
     return session
   } catch (error) {

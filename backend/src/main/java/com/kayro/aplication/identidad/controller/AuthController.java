@@ -2,6 +2,7 @@ package com.kayro.aplication.identidad.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +13,6 @@ import com.kayro.aplication.identidad.usecase.LoginUseCase;
 import com.kayro.aplication.identidad.usecase.RegisterUseCase;
 import com.kayro.helpers.ApiResponseWrapper;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.AllArgsConstructor;
 
 @RestController 
