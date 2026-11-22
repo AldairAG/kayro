@@ -8,4 +8,8 @@ public interface RedRepository extends JpaRepository<RelacionRed,RelacionRedId>{
     
     List<RelacionRed> findByDescendiente_Id(Long descendienteId);
 
+    List<RelacionRed> findByAncestro_IdAndProfundidadBetweenOrderByProfundidadAsc(
+        Long ancestroId, Integer profundidadMinima, Integer profundidadMaxima
+    );
+
 }
