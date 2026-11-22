@@ -32,7 +32,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponseWrapper<JwtResponse>> login(@RequestBody AuthRequest request) {
-        JwtResponse response = loginUseCase.execute(request.getEmail(), request.getPassword());
+        JwtResponse response = loginUseCase.execute(request.getUsername(), request.getPassword());
         return ResponseEntity.ok(new ApiResponseWrapper<>(true, response, AuthSucces.LOGIN_EXITOSO.name(), null));
     }
 

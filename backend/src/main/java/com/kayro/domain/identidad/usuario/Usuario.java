@@ -1,6 +1,7 @@
 package com.kayro.domain.identidad.usuario;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -63,18 +64,20 @@ public class Usuario implements UserDetails {
     @Enumerated(EnumType.STRING)
     private TipoRango rango;
 
+    @Enumerated(EnumType.STRING)
     private Rol rol;
 
     private LocalDateTime createdAt;
 
-    // Usuario que lo invitó directamente
+    // Patrocinador directo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patrocinador_id")
     private Usuario patrocinador;
 
-    // Usuarios que invitó directamente
+    // Usuarios invitados directamente
     @OneToMany(mappedBy = "patrocinador")
-    private List<Usuario> referidosDirectos;
+    @Builder.Default
+    private List<Usuario> referidosDirectos = new ArrayList<>();
 
     // RELACIONES
 
