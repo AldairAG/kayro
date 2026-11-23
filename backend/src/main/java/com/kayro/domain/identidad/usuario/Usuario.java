@@ -84,6 +84,14 @@ public class Usuario implements UserDetails {
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Perfil perfil;
 
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+        if (perfil != null) {
+            perfil.setUsuario(this);
+        }
+    }
+
     // UserDetails implementation
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

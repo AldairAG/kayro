@@ -15,16 +15,16 @@ import com.kayro.helpers.ApiResponseWrapper;
 
 import lombok.AllArgsConstructor;
 
-@RestController 
-@RequestMapping ("/api/auth")
-@AllArgsConstructor 
+@RestController
+@RequestMapping("/api/auth")
+@AllArgsConstructor
 public class AuthController {
-    
+
     private final LoginUseCase loginUseCase;
 
     private final RegisterUseCase registerUseCase;
 
-        @PostMapping("/registro")
+    @PostMapping("/registro")
     public ResponseEntity<ApiResponseWrapper<JwtResponse>> registrar(@RequestBody AuthRequest request) {
         JwtResponse response = registerUseCase.execute(request);
         return ResponseEntity.ok(new ApiResponseWrapper<>(true, response, AuthSucces.REGISTRO_EXITOSO.name(), null));

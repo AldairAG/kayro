@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kayro.aplication.identidad.dto.AuthRequest;
 import com.kayro.aplication.identidad.dto.JwtResponse;
 import com.kayro.aplication.identidad.error.AuthErrors;
+import com.kayro.domain.identidad.perfil.Perfil;
 import com.kayro.domain.identidad.red.RedService;
 import com.kayro.domain.identidad.usuario.Usuario;
 import com.kayro.domain.identidad.usuario.UsuarioService;
@@ -47,6 +48,15 @@ public class RegisterUseCase {
                     .findByUsername(request.getPatrocinador());
         }
 
+        //cREAR PERFIL
+        Perfil perfil = Perfil.builder()
+                .nombre(request.getNombre())
+                .apellidos(request.getApellido())
+                .telefono(request.getTelefono())
+                .lada(request.getLada())
+                .telefono(request.getTelefono())
+                .build();
+
         Usuario usuario = Usuario.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
@@ -57,6 +67,8 @@ public class RegisterUseCase {
                 .rango(TipoRango.RANGO_0)
                 .patrocinador(patrocinador)
                 .build();
+        
+        usuario.setPerfil(perfil);
 
         Usuario guardado = usuarioService.save(usuario);
 

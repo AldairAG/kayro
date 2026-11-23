@@ -48,4 +48,11 @@ public class RedService {
         redRepository.saveAll(nuevasRelaciones);
     }
 
+    public List<RelacionRed> findByAncestroId(Long usuarioId) {
+        List<RelacionRed> relaciones = redRepository
+                .findByAncestro_IdAndProfundidadBetweenOrderByProfundidadAsc(
+                        usuarioId, 1, 7);
+        return relaciones;
+    }
+
 }
