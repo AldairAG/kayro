@@ -43,17 +43,17 @@ function AuthLayout({
           <div className="relative max-w-md pb-8">
             <div className="mb-6 h-1 w-12 rounded-full bg-[var(--secundario)]" />
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-white/65">
-              Tu negocio, en equilibrio
+              Invierte con claridad
             </p>
             <h2 className="text-4xl font-semibold leading-[1.15] tracking-tight xl:text-5xl">
-              Cada detalle cuenta. Nosotros te ayudamos a conectarlos.
+              Tus metas financieras empiezan con una decisión.
             </h2>
             <p className="mt-6 max-w-sm text-base leading-7 text-white/70">
-              Administra tus productos, recetas e inventario desde un solo lugar.
+              Explora alternativas de inversión y mantén tu portafolio a la vista.
             </p>
           </div>
 
-          <p className="relative text-sm text-white/45">Una mejor forma de llevar tu operación.</p>
+          <p className="relative text-sm text-white/45">Información clara para tomar tus propias decisiones.</p>
         </aside>
 
         <section className="flex items-center justify-center px-6 py-10 sm:px-12 lg:px-14 xl:px-20">

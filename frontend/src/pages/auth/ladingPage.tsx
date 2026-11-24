@@ -49,15 +49,15 @@ function LandingPage({ onNavigate }: LandingPageProps) {
         <div className="max-w-xl">
           <p className="mb-5 inline-flex items-center gap-2 rounded-full bg-[color-mix(in_srgb,var(--primario)_5%,white)] px-3.5 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[color-mix(in_srgb,var(--primario)_80%,white)]">
             <span className="h-2 w-2 rounded-full bg-[var(--secundario)]" />
-            Tu negocio, en equilibrio
+            Invierte con claridad
           </p>
           <h1 className="text-4xl font-semibold leading-tight tracking-tight text-[color-mix(in_srgb,var(--primario)_15%,black)] sm:text-5xl lg:text-6xl">
-            Organiza tu operación,{' '}
-            <span className="text-[color-mix(in_srgb,var(--primario)_80%,white)]">sin complicaciones.</span>
+            Haz crecer tus metas,{' '}
+            <span className="text-[color-mix(in_srgb,var(--primario)_80%,white)]">a tu manera.</span>
           </h1>
           <p className="mt-6 max-w-lg text-base leading-7 text-[color-mix(in_srgb,var(--primario)_45%,white)] sm:text-lg">
-            Administra productos, recetas e inventario desde un solo lugar.
-            Entra a tu cuenta o crea una para comenzar.
+            Explora opciones de inversión y sigue tu portafolio desde un solo lugar.
+            Crea tu cuenta para comenzar a conocer la plataforma.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -93,27 +93,39 @@ function LandingPage({ onNavigate }: LandingPageProps) {
           <div className="absolute -right-5 -top-5 h-24 w-24 rounded-full bg-[color-mix(in_srgb,var(--secundario)_25%,transparent)] blur-2xl" />
           <div className="relative flex items-center justify-between">
             <div>
-              <p className="text-sm text-white/65">Resumen de tu negocio</p>
-              <p className="mt-1 text-xl font-semibold">Todo en orden</p>
+              <p className="text-sm text-white/65">Portafolio de ejemplo</p>
+              <p className="mt-1 text-xl font-semibold">Tu visión, en un solo lugar</p>
             </div>
             <span className="grid h-11 w-11 place-items-center rounded-2xl bg-white/10 text-[var(--secundario)]">
               <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
-                <path
-                  d="m5 12 4 4L19 6"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                />
+                <path d="M4 17 9 12l3 3 7-8" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+                <path d="M14 7h5v5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
               </svg>
             </span>
           </div>
 
-          <div className="relative mt-8 space-y-3">
+          <div className="relative mt-8 rounded-2xl border border-white/10 bg-white/10 p-4">
+            <p className="text-xs font-medium uppercase tracking-[0.16em] text-white/55">Valor ilustrativo</p>
+            <p className="mt-2 text-3xl font-semibold tracking-tight">$125,430.00</p>
+            <div className="mt-4 h-20 w-full">
+              <svg viewBox="0 0 320 80" fill="none" preserveAspectRatio="none" className="h-full w-full">
+                <path d="M0 64C24 61 24 48 48 52S75 62 96 48 125 39 144 45 169 56 192 34 219 40 240 27 271 32 288 17 307 21 320 8" stroke="#e47b59" strokeLinecap="round" strokeWidth="3" />
+                <path d="M0 64C24 61 24 48 48 52S75 62 96 48 125 39 144 45 169 56 192 34 219 40 240 27 271 32 288 17 307 21 320 8V80H0V64Z" fill="url(#portfolio-chart-fill)" />
+                <defs>
+                  <linearGradient id="portfolio-chart-fill" x1="160" y1="8" x2="160" y2="80" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#e47b59" stopOpacity=".28" />
+                    <stop offset="1" stopColor="#e47b59" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+
+          <div className="relative mt-4 space-y-3">
             {[
-              ['Productos', 'Organizados'],
-              ['Recetas', 'Al día'],
-              ['Inventario', 'Controlado'],
+              ['Acciones', 'Explora el mercado'],
+              ['Fondos', 'Diversifica tu portafolio'],
+              ['Bonos', 'Conoce otras alternativas'],
             ].map(([label, status]) => (
               <div
                 key={label}
@@ -127,13 +139,13 @@ function LandingPage({ onNavigate }: LandingPageProps) {
             ))}
           </div>
           <p className="relative mt-7 text-sm leading-6 text-white/65">
-            Una vista sencilla para mantener tu operación conectada.
+            Los datos mostrados son ilustrativos y no representan rendimientos reales.
           </p>
         </div>
       </section>
 
       <footer className="px-5 py-5 text-center text-xs text-[color-mix(in_srgb,var(--primario)_45%,white)]">
-        © 2026 Kayro. Tu negocio, en equilibrio.
+        © 2026 Kayro. Invierte con claridad.
       </footer>
     </main>
   )

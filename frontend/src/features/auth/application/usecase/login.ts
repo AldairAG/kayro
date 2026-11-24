@@ -1,17 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import type { AuthRequestDto, AuthResponseDto } from '../../domain/auth.dto'
+import type { AuthSessionDto, LoginRequestDto } from '../../domain/auth.dto'
 import { login as loginRequest } from '../../infrastructure/authApi'
 import { storeAuthToken } from '../../infrastructure/authTokenStorage'
+import { getRoleFromJwt } from '../../infrastructure/jwtRole'
 
-type LoginCredentials = AuthRequestDto & { remember: boolean }
+type LoginCredentials = LoginRequestDto & { remember: boolean }
 
 export const loginUser = createAsyncThunk<
-  AuthResponseDto,
+  AuthSessionDto,
   LoginCredentials,
   { rejectValue: string }
 >('auth/login', async ({ remember, ...credentials }, { rejectWithValue }) => {
   try {
-    const session = await loginRequest(credentials)
+    const response = await loginRequest(credentials)
+    const session = {
+      ...response.data,
+      rol: getRoleFromJwt(response.data.token),
+    }
     storeAuthToken(session.token, remember)
     return session
   } catch (error) {
