@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.kayro.aplication.identidad.dto.UsuarioDto;
 import com.kayro.aplication.identidad.mapper.UsuarioMapper;
-import com.kayro.aplication.identidad.shared.dto.FiltroDto;
 import com.kayro.domain.identidad.usuario.Usuario;
 import com.kayro.domain.identidad.usuario.UsuarioService;
+import com.kayro.shared.dto.FiltroDto;
 
 import lombok.AllArgsConstructor;
 

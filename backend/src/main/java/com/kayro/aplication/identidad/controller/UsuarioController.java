@@ -7,9 +7,9 @@ import com.kayro.aplication.identidad.dto.PerfilDto;
 import com.kayro.aplication.identidad.dto.UsuarioDto;
 import com.kayro.aplication.identidad.query.GetAllUsuariosQuery;
 import com.kayro.aplication.identidad.query.GetRedQuery;
-import com.kayro.aplication.identidad.shared.dto.FiltroDto;
 import com.kayro.aplication.identidad.usecase.EditarPerfilUseCase;
 import com.kayro.helpers.ApiResponseWrapper;
+import com.kayro.shared.dto.FiltroDto;
 
 import lombok.AllArgsConstructor;
 

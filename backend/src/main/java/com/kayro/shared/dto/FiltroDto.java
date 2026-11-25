@@ -1,4 +1,4 @@
-package com.kayro.aplication.identidad.shared.dto;
+package com.kayro.shared.dto;
 
 import java.time.LocalDateTime;
 

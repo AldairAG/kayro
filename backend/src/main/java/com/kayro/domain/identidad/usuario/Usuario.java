@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.kayro.domain.identidad.perfil.Perfil;
 import com.kayro.domain.identidad.usuario.enums.Rol;
 import com.kayro.domain.identidad.usuario.enums.TipoRango;
+import com.kayro.domain.kyc.KycFile;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -69,6 +70,8 @@ public class Usuario implements UserDetails {
 
     private LocalDateTime createdAt;
 
+    private Boolean kycValidacion;
+
     // Patrocinador directo
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patrocinador_id")
@@ -84,6 +87,9 @@ public class Usuario implements UserDetails {
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Perfil perfil;
 
+    @OneToMany (mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<KycFile> kycFiles= new ArrayList<>();
 
     public void setPerfil(Perfil perfil) {
         this.perfil = perfil;

@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.kayro.aplication.identidad.shared.dto.FiltroDto;
 import com.kayro.domain.identidad.usuario.Usuario;
+import com.kayro.shared.dto.FiltroDto;
 
 import jakarta.persistence.criteria.Predicate;
 

@@ -9,10 +9,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.kayro.aplication.identidad.shared.dto.FiltroDto;
 import com.kayro.domain.identidad.usuario.error.UsuarioErrors;
 import com.kayro.domain.identidad.usuario.specs.UsuarioSpecification;
 import com.kayro.middleware.AppException;
+import com.kayro.shared.dto.FiltroDto;
 
 import lombok.AllArgsConstructor;
 
