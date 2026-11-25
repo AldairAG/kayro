@@ -49,12 +49,12 @@ function PerfilForm({
   }
 
   const inputClassName =
-    'mt-2 h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[var(--primario)] focus:ring-4 focus:ring-slate-100'
+    'mt-2 h-12 w-full rounded-xl border border-[color-mix(in_srgb,var(--border)_35%,var(--background))] bg-(--background) px-4 text-sm text-(--text-primary) outline-none transition placeholder:text-[color-mix(in_srgb,var(--text-primary)_35%,var(--background))] hover:border-[color-mix(in_srgb,var(--border)_65%,var(--background))] focus:border-(--primario) focus:ring-4 focus:ring-[color-mix(in_srgb,var(--primario)_10%,transparent)]'
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid gap-5 sm:grid-cols-2">
-        <label className="text-sm font-medium text-slate-700">
+        <label className="text-sm font-medium text-(--text-primary)">
           Nombre
           <input
             name="nombre"
@@ -65,7 +65,7 @@ function PerfilForm({
             className={inputClassName}
           />
         </label>
-        <label className="text-sm font-medium text-slate-700">
+        <label className="text-sm font-medium text-(--text-primary)">
           Apellidos
           <input
             name="apellidos"
@@ -76,7 +76,7 @@ function PerfilForm({
             className={inputClassName}
           />
         </label>
-        <label className="text-sm font-medium text-slate-700">
+        <label className="text-sm font-medium text-(--text-primary)">
           Lada
           <input
             name="lada"
@@ -88,7 +88,7 @@ function PerfilForm({
             className={inputClassName}
           />
         </label>
-        <label className="text-sm font-medium text-slate-700">
+        <label className="text-sm font-medium text-(--text-primary)">
           Teléfono
           <input
             name="telefono"
@@ -99,7 +99,7 @@ function PerfilForm({
             className={inputClassName}
           />
         </label>
-        <label className="text-sm font-medium text-slate-700 sm:col-span-2">
+        <label className="text-sm font-medium text-(--text-primary) sm:col-span-2">
           País
           <input
             name="pais"
@@ -115,7 +115,9 @@ function PerfilForm({
         <p
           role={feedbackIsError ? 'alert' : 'status'}
           className={`rounded-xl px-4 py-3 text-sm ${
-            feedbackIsError ? 'bg-red-50 text-red-700' : 'bg-emerald-50 text-emerald-700'
+            feedbackIsError
+              ? 'bg-[color-mix(in_srgb,var(--error)_8%,var(--background))] text-(--error)'
+              : 'bg-[color-mix(in_srgb,var(--primario)_6%,var(--background))] text-(--primario)'
           }`}
         >
           {feedback}
@@ -126,7 +128,7 @@ function PerfilForm({
         type="submit"
         disabled={submitting}
         aria-busy={submitting}
-        className="flex h-12 w-full items-center justify-center rounded-xl bg-[var(--primario)] px-5 text-sm font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        className="flex h-12 w-full items-center justify-center rounded-xl bg-(--quinario) px-5 text-sm font-semibold text-(--background) transition hover:bg-(--secundario) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primario) disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
       >
         {submitting ? 'Guardando…' : 'Guardar perfil'}
       </button>

@@ -32,14 +32,14 @@ function RegisterScreen({
 
   return (
     <AuthLayout
-      eyebrow="Invierte a tu ritmo"
-      title="Crea tu cuenta"
+      eyebrow="Crea tu espacio de inversión"
+      title="Empieza con Kayro"
       description="Regístrate para explorar y gestionar tus inversiones desde un solo lugar."
       onHome={onHome}
       footer={
         <>
           ¿Ya tienes una cuenta?{' '}
-          <button type="button" onClick={onLogin} className="font-semibold text-[color-mix(in_srgb,var(--primario)_80%,white)] hover:text-[color-mix(in_srgb,var(--secundario)_85%,black)]">
+          <button type="button" onClick={onLogin} className="font-semibold text-(--primario) transition hover:text-(--secundario)">
             Inicia sesión
           </button>
         </>
@@ -79,12 +79,12 @@ function RegisterScreen({
           minLength={8}
         />
 
-        <label className="flex cursor-pointer items-start gap-2.5 pt-1 text-xs leading-5 text-[color-mix(in_srgb,var(--primario)_45%,white)]">
+        <label className="flex cursor-pointer items-start gap-2.5 pt-1 text-xs leading-5 text-[color-mix(in_srgb,var(--text-primary)_65%,var(--background))]">
           <input
             type="checkbox"
             name="terms"
             required
-            className="mt-0.5 h-4 w-4 shrink-0 rounded border-[color-mix(in_srgb,var(--primario)_10%,white)] accent-[color-mix(in_srgb,var(--primario)_80%,white)] focus:ring-[color-mix(in_srgb,var(--primario)_65%,white)]"
+            className="mt-0.5 h-4 w-4 shrink-0 rounded border-(--border) accent-(--primario) focus:ring-(--primario)"
           />
           <span>Acepto los términos de servicio y el aviso de privacidad.</span>
         </label>
@@ -94,8 +94,8 @@ function RegisterScreen({
             role={feedbackIsError ? 'alert' : 'status'}
             className={`rounded-xl px-4 py-3 text-sm leading-5 ${
               feedbackIsError
-                ? 'bg-red-50 text-red-700'
-                : 'bg-[color-mix(in_srgb,var(--primario)_5%,white)] text-[color-mix(in_srgb,var(--primario)_80%,white)]'
+                ? 'bg-[color-mix(in_srgb,var(--error)_8%,var(--background))] text-(--error)'
+                : 'bg-[color-mix(in_srgb,var(--primario)_6%,var(--background))] text-(--primario)'
             }`}
           >
             {feedback}
@@ -106,7 +106,7 @@ function RegisterScreen({
           type="submit"
           disabled={submitting}
           aria-busy={submitting}
-          className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[var(--primario)] px-5 text-sm font-semibold text-white shadow-lg transition hover:bg-[color-mix(in_srgb,var(--primario)_80%,white)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color-mix(in_srgb,var(--primario)_65%,white)] disabled:cursor-not-allowed disabled:opacity-60"
+          className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-(--quinario) px-5 text-sm font-semibold text-(--background) shadow-[0_8px_20px_-10px_color-mix(in_srgb,var(--quinario)_75%,transparent)] transition hover:bg-(--secundario) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primario) disabled:cursor-not-allowed disabled:opacity-60"
         >
           {submitting ? 'Creando cuenta…' : 'Crear cuenta'}
           {!submitting && <span aria-hidden="true">→</span>}

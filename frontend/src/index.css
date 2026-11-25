@@ -1,12 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --primario: #173a5e;
-  --primario-hover: #122d49;
-  --primario-hard: #05284d;
-  --primario-soft: #1d4876;
-  --secundario: #e47b59;
-  --terceario: #f4f6fa;
+  --primario: #00B140;
+  --secundario: #006400;
+  --terciario: #7ED957;
+  --cuaternario: #00A884;
+  --quinario: #003D33;
+
+  --background: #FFFFFF;
+  --surface: #F2F4F7;
+  --border: #A0AEC0;
+  --text-primary: #1F2937;
+
+  --premium: #D4AF37;
+  --info: #007BFF;
+  --error: #E53935;
+
+  --gradient-primary:
+    linear-gradient(100deg, #00B140, #006400)
 }
 
 @theme {
@@ -17,8 +28,8 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
-  background: var(--terceario);
-  color: color-mix(in srgb, var(--primario) 15%, black);
+  background: var(--surface);
+  color: var(--text-primary);
   font-family: var(--font-sans);
 }
 

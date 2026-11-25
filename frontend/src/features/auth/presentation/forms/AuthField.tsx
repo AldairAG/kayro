@@ -21,7 +21,7 @@ function AuthField({
 }: AuthFieldProps) {
   return (
     <div>
-      <label htmlFor={id} className="mb-2 block text-sm font-medium text-[color-mix(in_srgb,var(--primario)_15%,black)]">
+      <label htmlFor={id} className="mb-2 block text-sm font-medium text-(--text-primary)">
         {label}
       </label>
       <input
@@ -32,7 +32,7 @@ function AuthField({
         autoComplete={autoComplete}
         minLength={minLength}
         required={required}
-        className="h-12 w-full rounded-xl border border-[color-mix(in_srgb,var(--primario)_10%,white)] bg-white px-4 text-sm text-[color-mix(in_srgb,var(--primario)_15%,black)] outline-none transition placeholder:text-[color-mix(in_srgb,var(--primario)_30%,white)] hover:border-[color-mix(in_srgb,var(--primario)_12%,white)] focus:border-[color-mix(in_srgb,var(--primario)_65%,white)] focus:ring-4 focus:ring-[color-mix(in_srgb,var(--primario)_5%,white)]"
+        className="h-12 w-full rounded-xl border border-[color-mix(in_srgb,var(--border)_35%,var(--background))] bg-(--background) px-4 text-sm text-(--text-primary) outline-none transition placeholder:text-[color-mix(in_srgb,var(--text-primary)_35%,var(--background))] hover:border-[color-mix(in_srgb,var(--border)_65%,var(--background))] focus:border-(--primario) focus:ring-4 focus:ring-[color-mix(in_srgb,var(--primario)_10%,transparent)]"
       />
     </div>
   )

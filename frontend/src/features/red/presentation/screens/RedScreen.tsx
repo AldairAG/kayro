@@ -18,44 +18,61 @@ function RedScreen({ onBack, onLogout }: RedScreenProps) {
   }, [cargar, status, usuarioId])
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-8 sm:px-8">
-      <div className="mx-auto max-w-5xl">
-        <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-              Kayro
-            </p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">
-              Mi red
-            </h1>
-            <p className="mt-2 text-sm text-slate-600">
-              Consulta las personas que forman parte de tu red de referidos.
-            </p>
+    <main className="min-h-screen bg-(--surface) px-4 py-6 sm:px-8 sm:py-10">
+      <div className="mx-auto max-w-6xl">
+        <header className="mb-10 flex flex-wrap items-center justify-between gap-5">
+          <div className="flex items-center gap-3">
+            <span className="grid h-11 w-11 place-items-center rounded-2xl bg-(--quinario) text-lg font-bold text-(--terciario)">
+              K
+            </span>
+            <div>
+              <p className="text-lg font-bold tracking-tight text-(--quinario)">kayro</p>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[color-mix(in_srgb,var(--text-primary)_55%,var(--background))]">
+                Backoffice de inversión
+              </p>
+            </div>
           </div>
-          <div className="flex gap-2">
+          <nav aria-label="Navegación de cuenta" className="flex flex-wrap gap-2">
             <button
               type="button"
               onClick={onBack}
-              className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+              className="rounded-xl border border-[color-mix(in_srgb,var(--border)_35%,var(--background))] bg-(--background) px-4 py-2.5 text-sm font-semibold text-(--text-primary) transition hover:bg-(--surface) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primario)"
             >
               Volver al perfil
             </button>
             <button
               type="button"
               onClick={onLogout}
-              className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+              className="rounded-xl bg-(--quinario) px-4 py-2.5 text-sm font-semibold text-(--background) transition hover:bg-(--secundario) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primario)"
             >
               Cerrar sesión
             </button>
-          </div>
+          </nav>
         </header>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-          <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+        <div className="mb-8 max-w-2xl">
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-(--secundario)">
+            Crecimiento de comunidad
+          </p>
+          <h1 className="text-3xl font-semibold tracking-[-0.04em] text-(--text-primary) sm:text-4xl">
+            Mi red
+          </h1>
+          <p className="mt-3 text-sm leading-6 text-[color-mix(in_srgb,var(--text-primary)_65%,var(--background))] sm:text-base">
+            Consulta las personas que forman parte de tu red de referidos.
+          </p>
+        </div>
+
+        <section className="rounded-3xl border border-[color-mix(in_srgb,var(--border)_25%,var(--background))] bg-(--background) p-5 shadow-[0_20px_60px_-44px_color-mix(in_srgb,var(--quinario)_30%,transparent)] sm:p-7">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h2 className="text-lg font-semibold text-slate-900">Integrantes</h2>
+              <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-(--secundario)">
+                Tu comunidad
+              </p>
+              <h2 className="text-xl font-semibold tracking-tight text-(--text-primary)">
+                Integrantes
+              </h2>
               {status === 'succeeded' && (
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-1.5 text-sm text-[color-mix(in_srgb,var(--text-primary)_60%,var(--background))]">
                   {red.length} {red.length === 1 ? 'integrante' : 'integrantes'} en tu red
                 </p>
               )}
@@ -64,31 +81,37 @@ function RedScreen({ onBack, onLogout }: RedScreenProps) {
               type="button"
               onClick={() => void cargar()}
               disabled={status === 'loading' || usuarioId === null}
-              className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+              className="rounded-xl border border-[color-mix(in_srgb,var(--border)_35%,var(--background))] bg-(--background) px-4 py-2.5 text-sm font-semibold text-(--text-primary) transition hover:bg-(--surface) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primario) disabled:cursor-not-allowed disabled:opacity-60"
             >
               {status === 'loading' ? 'Cargando…' : 'Actualizar'}
             </button>
           </div>
 
           {usuarioId === null && (
-            <p role="alert" className="py-8 text-center text-sm text-red-700">
+            <p
+              role="alert"
+              className="rounded-2xl bg-[color-mix(in_srgb,var(--error)_8%,var(--background))] px-5 py-8 text-center text-sm leading-6 text-(--error)"
+            >
               No se encontró el usuario de la sesión. Inicia sesión nuevamente para consultar tu red.
             </p>
           )}
 
           {usuarioId !== null && status === 'loading' && (
-            <p role="status" className="py-10 text-center text-sm text-slate-500">
-              Cargando tu red…
-            </p>
+            <div role="status" className="flex flex-col items-center justify-center gap-3 py-12">
+              <span className="h-8 w-8 animate-spin rounded-full border-2 border-[color-mix(in_srgb,var(--primario)_18%,var(--background))] border-t-(--primario)" aria-hidden="true" />
+              <p className="text-sm text-[color-mix(in_srgb,var(--text-primary)_60%,var(--background))]">
+                Cargando tu red…
+              </p>
+            </div>
           )}
 
           {usuarioId !== null && status === 'failed' && (
-            <div className="py-8 text-center">
-              <p role="alert" className="text-sm text-red-700">{error}</p>
+            <div className="rounded-2xl bg-[color-mix(in_srgb,var(--error)_8%,var(--background))] px-5 py-8 text-center">
+              <p role="alert" className="text-sm text-(--error)">{error}</p>
               <button
                 type="button"
                 onClick={() => void cargar()}
-                className="mt-4 rounded-lg bg-[var(--primario)] px-4 py-2 text-sm font-semibold text-white"
+                className="mt-4 rounded-xl bg-(--quinario) px-4 py-2.5 text-sm font-semibold text-(--background) transition hover:bg-(--secundario) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primario)"
               >
                 Reintentar
               </button>
@@ -96,43 +119,53 @@ function RedScreen({ onBack, onLogout }: RedScreenProps) {
           )}
 
           {status === 'succeeded' && red.length === 0 && (
-            <p className="py-10 text-center text-sm text-slate-500">
-              Aún no hay integrantes en tu red.
-            </p>
+            <div className="rounded-2xl border border-dashed border-[color-mix(in_srgb,var(--border)_45%,var(--background))] bg-(--surface) px-5 py-12 text-center">
+              <span className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-[color-mix(in_srgb,var(--primario)_10%,var(--background))] text-lg font-bold text-(--primario)">
+                K
+              </span>
+              <p className="mt-4 text-sm font-medium text-(--text-primary)">
+                Aún no hay integrantes en tu red.
+              </p>
+            </div>
           )}
 
           {status === 'succeeded' && red.length > 0 && (
-            <div className="space-y-6">
+            <div className="space-y-7">
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
                 {niveles.map((nivel) => {
                   const cantidad = red.filter((usuario) => usuario.nivel === nivel).length
                   return (
                     <div
                       key={nivel}
-                      className="rounded-xl border border-slate-100 bg-slate-50 px-3 py-4 text-center"
+                      className="rounded-2xl border border-[color-mix(in_srgb,var(--border)_24%,var(--background))] bg-(--surface) px-3 py-4 text-center"
                     >
-                      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      <p className="text-[10px] font-semibold uppercase tracking-wide text-[color-mix(in_srgb,var(--text-primary)_60%,var(--background))]">
                         Nivel {nivel}
                       </p>
-                      <p className="mt-1 text-2xl font-semibold text-slate-900">{cantidad}</p>
+                      <p className="mt-2 text-2xl font-semibold tracking-tight text-(--quinario)">
+                        {cantidad}
+                      </p>
                     </div>
                   )
                 })}
               </div>
 
-              <div className="overflow-x-auto rounded-xl border border-slate-100">
+              <div className="overflow-x-auto rounded-2xl border border-[color-mix(in_srgb,var(--border)_25%,var(--background))]">
                 <table className="w-full min-w-[520px] border-collapse text-left text-sm">
-                  <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+                  <thead className="bg-(--surface) text-[10px] uppercase tracking-[0.12em] text-[color-mix(in_srgb,var(--text-primary)_60%,var(--background))]">
                     <tr>
-                      <th scope="col" className="px-5 py-3 font-semibold">Nombre</th>
-                      <th scope="col" className="px-5 py-3 font-semibold">Usuario</th>
-                      <th scope="col" className="px-5 py-3 font-semibold">Nivel</th>
+                      <th scope="col" className="px-5 py-3.5 font-semibold">Nombre</th>
+                      <th scope="col" className="px-5 py-3.5 font-semibold">Usuario</th>
+                      <th scope="col" className="px-5 py-3.5 font-semibold">Nivel</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-[color-mix(in_srgb,var(--border)_20%,var(--background))]">
                     {red.map((usuario) => (
-                      <tr key={usuario.id} className="text-slate-700">
-                        <td className="px-5 py-4 font-medium text-slate-900">
+                      <tr
+                        key={usuario.id}
+                        className="text-[color-mix(in_srgb,var(--text-primary)_75%,var(--background))] transition-colors hover:bg-(--surface)"
+                      >
+                        <td className="px-5 py-4 font-medium text-(--text-primary)">
                           {[usuario.nombre, usuario.apellidos].filter(Boolean).join(' ') ||
                             usuario.username ||
                             'Sin nombre'}
