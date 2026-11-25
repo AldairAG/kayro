@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { AuthResponseDto } from '../domain/auth.dto'
+import type { AuthSessionDto } from '../domain/auth.dto'
 import { getStoredAuthToken } from '../infrastructure/authTokenStorage'
 import { loginUser } from '../application/usecase/login'
 import { registerUser } from '../application/usecase/register'
 
 type AuthState = {
   token: string | null
-  user: Pick<AuthResponseDto, 'id' | 'email'> | null
+  user: Pick<AuthSessionDto, 'id' | 'email' | 'rol'> | null
   status: 'idle' | 'loading' | 'succeeded' | 'failed'
   error: string | null
 }
@@ -42,13 +42,17 @@ const authSlice = createSlice({
         })
         .addCase(thunk.fulfilled, (state, action) => {
           state.token = action.payload.token
-          state.user = { id: action.payload.id, email: action.payload.email }
+          state.user = {
+            id: action.payload.id,
+            email: action.payload.email,
+            rol: action.payload.rol,
+          }
           state.status = 'succeeded'
           state.error = null
         })
         .addCase(thunk.rejected, (state, action) => {
           state.status = 'failed'
-          state.error = action.error ? action.error.message || 'Ocurrió un error desconocido.' : 'Ocurrió un error desconocido.'
+          state.error = action.payload ?? action.error.message ?? 'Ocurrió un error desconocido.'
         })
     }
   },

@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import type { AuthResponseDto } from '../../domain/auth.dto'
+import type { AuthSessionDto } from '../../domain/auth.dto'
 import { register as registerRequest } from '../../infrastructure/authApi'
 import { storeAuthToken } from '../../infrastructure/authTokenStorage'
+import { getRoleFromJwt } from '../../infrastructure/jwtRole'
 
 export type RegisterCredentials = {
   nombre: string
@@ -11,13 +12,16 @@ export type RegisterCredentials = {
 }
 
 export const registerUser = createAsyncThunk<
-  AuthResponseDto,
+  AuthSessionDto,
   RegisterCredentials,
   { rejectValue: string }
 >('auth/register', async (credentials, { rejectWithValue }) => {
   try {
     const response = await registerRequest({ ...credentials, rol: 'USUARIO' })
-    const session = response.data
+    const session = {
+      ...response.data,
+      rol: getRoleFromJwt(response.data.token),
+    }
     storeAuthToken(session.token, false)
     return session
   } catch (error) {

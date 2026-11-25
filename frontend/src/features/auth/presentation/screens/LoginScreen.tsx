@@ -6,7 +6,7 @@ type LoginScreenProps = {
   onRegister: () => void
   onForgotPassword: () => void
   onHome: () => void
-  onSubmit: (credentials: { email: string; password: string; remember: boolean }) => void
+  onSubmit: (credentials: { username: string; password: string; remember: boolean }) => void
   feedback: string
   feedbackIsError: boolean
   submitting: boolean
@@ -25,7 +25,7 @@ function LoginScreen({
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     onSubmit({
-      email: String(formData.get('email')),
+      username: String(formData.get('username')),
       password: String(formData.get('password')),
       remember: formData.get('remember') === 'on',
     })
@@ -33,9 +33,9 @@ function LoginScreen({
 
   return (
     <AuthLayout
-      eyebrow="Bienvenido de nuevo"
+      eyebrow="Tu futuro, a tu ritmo"
       title="Inicia sesión"
-      description="Ingresa tus datos para continuar con tu espacio de trabajo."
+      description="Accede a tu cuenta y consulta tu portafolio de inversiones."
       onHome={onHome}
       footer={
         <>
@@ -49,11 +49,10 @@ function LoginScreen({
       <form onSubmit={handleSubmit} className="space-y-5">
         <AuthField
           id="login-email"
-          name="email"
-          type="email"
-          label="Correo electrónico"
-          placeholder="nombre@empresa.com"
-          autoComplete="email"
+          name="username"
+          label="Nombre de usuario"
+          placeholder="Tu nombre de usuario"
+          autoComplete="username"
         />
         <div>
           <div className="mb-2 flex items-center justify-between gap-3">

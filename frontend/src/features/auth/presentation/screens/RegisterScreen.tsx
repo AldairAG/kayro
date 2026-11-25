@@ -32,9 +32,9 @@ function RegisterScreen({
 
   return (
     <AuthLayout
-      eyebrow="Comienza hoy"
+      eyebrow="Invierte a tu ritmo"
       title="Crea tu cuenta"
-      description="Configura tu acceso y empieza a organizar tu negocio."
+      description="Regístrate para explorar y gestionar tus inversiones desde un solo lugar."
       onHome={onHome}
       footer={
         <>
