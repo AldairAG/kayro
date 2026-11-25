@@ -1,5 +1,5 @@
 services:
-  app_payglobal:
+  backend:
     build:
       context: backend
       dockerfile: Dockerfile
@@ -8,9 +8,9 @@ services:
     networks:
       - main_network
     environment:
-      DB_URL: jdbc:postgresql://cambiarpornuevolink/db_kayro
-      DB_USER_NAME: postgres
-      DB_PASSWORD: kayro2026$
+      DB_URL: jdbc:postgresql://vps-6639755-x.dattaweb.com/db_kayro
+      DB_USER_NAME: root
+      DB_PASSWORD: maxi2018
       SENDGRID_API_KEY: 7b2b43ebb13be494f1f1ab9382f425a0
       APP_MASTER_PASSWORD: Masterglobal2026$
       TZ: Etc/GMT+6
@@ -26,7 +26,7 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      - app_payglobal
+      - backend
     volumes:
       - ./frontend/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
