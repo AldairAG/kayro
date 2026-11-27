@@ -1,3 +1,4 @@
+import logoKayro from '../../assets/KAYRO_transparente.webp'
 type LandingPageProps = {
   onNavigate: (view: 'login' | 'register' | 'forgot-password') => void
 }
@@ -39,10 +40,7 @@ function LandingPage({ onNavigate }: LandingPageProps) {
             className={`flex items-center gap-3 text-(--quinario) no-underline ${focusRing}`}
             aria-label="Kayro, inicio"
           >
-            <span className="grid h-9 w-9 place-items-center rounded-lg bg-(--quinario) text-base font-bold text-(--terciario)">
-              K
-            </span>
-            <span className="text-xl font-semibold tracking-tight">kayro</span>
+            <img src={logoKayro} alt="Kayro" className="h-12 w-auto" />
           </a>
 
           <nav aria-label="Acceso a tu cuenta" className="flex items-center gap-2 sm:gap-3">

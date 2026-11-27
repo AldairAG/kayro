@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { apiBase } from '../app/api/apiBase'
-import authReducer from '../features/auth/store/auth.slice'
-import perfilReducer from '../features/perfil/store/perfil.slice'
-import redReducer from '../features/red/store/red.slice'
-import usuarioReducer from '../features/usuario/store/usuario.slice'
+import authReducer from '../features/identidad/auth/store/auth.slice'
+import perfilReducer from '../features/identidad/perfil/store/perfil.slice'
+import redReducer from '../features/identidad/red/store/red.slice'
+import usuarioReducer from '../features/identidad/usuario/store/usuario.slice'
 
 export const store = configureStore({
   reducer: {

@@ -2,12 +2,14 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch } from './store'
 import type { RootState } from './store'
-import { clearStoredAuthToken } from './features/auth/infrastructure/authTokenStorage'
-import { logout } from './features/auth/store/auth.slice'
-import AuthScreen from './features/auth/presentation/screens/AuthScreen'
-import PerfilScreen from './features/perfil/presentation/screens/PerfilScreen'
-import RedScreen from './features/red/presentation/screens/RedScreen'
-import UsuariosScreen from './features/usuario/presentation/screens/UsuariosScreen'
+import { clearStoredAuthToken } from './features/identidad/auth/infrastructure/authTokenStorage'
+import { logout } from './features/identidad/auth/store/auth.slice'
+import AuthScreen from './features/identidad/auth/presentation/screens/AuthScreen'
+import LayoutAdmin from './layout/layoutAdmin'
+import LayoutUsuario from './layout/layoutUsuario'
+import PerfilScreen from './features/identidad/perfil/presentation/screens/PerfilScreen'
+import RedScreen from './features/identidad/red/presentation/screens/RedScreen'
+import UsuariosScreen from './features/identidad/usuario/presentation/screens/UsuariosScreen'
 import LandingPage from './pages/auth/ladingPage'
 
 type AppView = 'landing' | 'login' | 'register' | 'forgot-password' | 'perfil' | 'red' | 'usuarios'
@@ -15,7 +17,7 @@ type AppView = 'landing' | 'login' | 'register' | 'forgot-password' | 'perfil' |
 function App() {
   const [view, setView] = useState<AppView>('landing')
   const dispatch = useDispatch<AppDispatch>()
-  const role = useSelector((state: RootState) => state.auth.user?.rol)
+  const role = useSelector((state: unknown) => (state as RootState).auth.user?.rol)
   const handleLogout = () => {
     clearStoredAuthToken()
     dispatch(logout())
@@ -28,23 +30,25 @@ function App() {
 
   if (view === 'usuarios' && role === 'ROLE_ADMINISTRADOR') {
     return (
-      <UsuariosScreen
-        onProfile={() => setView('perfil')}
+      <LayoutAdmin
         onLogout={handleLogout}
-      />
+        onNavigateToUsers={() => setView('usuarios')}
+      >
+        <UsuariosScreen />
+      </LayoutAdmin>
     )
   }
 
-  if (view === 'red') {
-    return <RedScreen onBack={() => setView('perfil')} onLogout={handleLogout} />
-  }
-
-  if (view === 'perfil' || view === 'usuarios') {
+  if (view === 'red' || view === 'perfil' || view === 'usuarios') {
+    const activeView = view === 'red' ? 'red' : 'perfil'
     return (
-      <PerfilScreen
+      <LayoutUsuario
+        activeView={activeView}
         onLogout={handleLogout}
-        onRed={() => setView('red')}
-      />
+        onNavigate={setView}
+      >
+        {activeView === 'red' ? <RedScreen /> : <PerfilScreen />}
+      </LayoutUsuario>
     )
   }
 
