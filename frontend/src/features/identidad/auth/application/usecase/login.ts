@@ -15,6 +15,7 @@ export const loginUser = createAsyncThunk<
     const response = await loginRequest(credentials)
     const session = {
       ...response.data,
+      username: credentials.username,
       rol: getRoleFromJwt(response.data.token),
     }
     storeAuthToken(session.token, remember)

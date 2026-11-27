@@ -1,6 +1,8 @@
 import logoKayro from '../../assets/KAYRO_transparente.webp'
+import { routes } from '../../routes'
+
 type LandingPageProps = {
-  onNavigate: (view: 'login' | 'register' | 'forgot-password') => void
+  onNavigate: (view: (typeof routes.auth)[keyof typeof routes.auth]) => void
 }
 
 const positions = [
@@ -46,21 +48,21 @@ function LandingPage({ onNavigate }: LandingPageProps) {
           <nav aria-label="Acceso a tu cuenta" className="flex items-center gap-2 sm:gap-3">
             <button
               type="button"
-              onClick={() => onNavigate('forgot-password')}
+              onClick={() => onNavigate(routes.auth.forgotPassword)}
               className={`hidden rounded-lg px-3 py-2 text-sm font-medium text-(--text-primary)/70 transition hover:text-(--secundario) md:inline ${focusRing}`}
             >
               ¿Olvidaste tu contraseña?
             </button>
             <button
               type="button"
-              onClick={() => onNavigate('login')}
+              onClick={() => onNavigate(routes.auth.login)}
               className={`rounded-lg px-3 py-2 text-sm font-semibold text-(--secundario) transition hover:bg-(--surface) sm:px-4 ${focusRing}`}
             >
               Iniciar sesión
             </button>
             <button
               type="button"
-              onClick={() => onNavigate('register')}
+              onClick={() => onNavigate(routes.auth.register)}
               className={`rounded-lg bg-(--secundario) px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-(--quinario) ${focusRing}`}
             >
               Crear cuenta
@@ -86,14 +88,14 @@ function LandingPage({ onNavigate }: LandingPageProps) {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <button
               type="button"
-              onClick={() => onNavigate('register')}
+              onClick={() => onNavigate(routes.auth.register)}
               className={`inline-flex h-12 items-center justify-center rounded-lg bg-(--secundario) px-6 text-sm font-semibold text-white transition hover:bg-(--quinario) ${focusRing}`}
             >
               Crear una cuenta
             </button>
             <button
               type="button"
-              onClick={() => onNavigate('login')}
+              onClick={() => onNavigate(routes.auth.login)}
               className={`inline-flex h-12 items-center justify-center rounded-lg border border-(--border) bg-(--background) px-6 text-sm font-semibold text-(--quinario) transition hover:border-(--secundario) hover:text-(--secundario) ${focusRing}`}
             >
               Ya tengo una cuenta
@@ -102,7 +104,7 @@ function LandingPage({ onNavigate }: LandingPageProps) {
 
           <button
             type="button"
-            onClick={() => onNavigate('forgot-password')}
+            onClick={() => onNavigate(routes.auth.forgotPassword)}
             className={`mt-5 rounded text-sm font-medium text-(--text-primary)/70 underline-offset-4 transition hover:text-(--secundario) hover:underline md:hidden ${focusRing}`}
           >
             ¿Olvidaste tu contraseña?

@@ -10,44 +10,84 @@ import LayoutUsuario from './layout/layoutUsuario'
 import PerfilScreen from './features/identidad/perfil/presentation/screens/PerfilScreen'
 import RedScreen from './features/identidad/red/presentation/screens/RedScreen'
 import UsuariosScreen from './features/identidad/usuario/presentation/screens/UsuariosScreen'
+import LicenciasScreen from './features/identidad/usuario/presentation/screens/Licencias'
 import LandingPage from './pages/auth/ladingPage'
+import { routes } from './routes'
 
-type AppView = 'landing' | 'login' | 'register' | 'forgot-password' | 'perfil' | 'red' | 'usuarios'
+type AppView =
+  | typeof routes.home
+  | (typeof routes.auth)[keyof typeof routes.auth]
+  | (typeof routes.usuario)[keyof typeof routes.usuario]
+  | (typeof routes.admin)[keyof typeof routes.admin]
+
+function getInviterFromPath(pathname: string): string | null {
+  const segments = pathname.split('/').filter(Boolean)
+  if (segments.length !== 1) return null
+
+  try {
+    return decodeURIComponent(segments[0]).trim() || null
+  } catch {
+    return null
+  }
+}
 
 function App() {
-  const [view, setView] = useState<AppView>('landing')
+  const inviterUsername = getInviterFromPath(window.location.pathname)
+  const [view, setView] = useState<AppView>(() =>
+    inviterUsername ? routes.auth.register : routes.home,
+  )
   const dispatch = useDispatch<AppDispatch>()
   const role = useSelector((state: unknown) => (state as RootState).auth.user?.rol)
+  const clearInvitePath = () => {
+    if (inviterUsername) window.history.replaceState(null, '', '/')
+  }
   const handleLogout = () => {
     clearStoredAuthToken()
     dispatch(logout())
-    setView('landing')
+    clearInvitePath()
+    setView(routes.home)
   }
 
-  if (view === 'landing') {
+  if (view === routes.home) {
     return <LandingPage onNavigate={setView} />
   }
 
-  if (view === 'usuarios' && role === 'ROLE_ADMINISTRADOR') {
+  if (view === routes.admin.usuarios && role === 'ROLE_ADMINISTRADOR') {
     return (
       <LayoutAdmin
         onLogout={handleLogout}
-        onNavigateToUsers={() => setView('usuarios')}
+        onNavigateToUsers={() => setView(routes.admin.usuarios)}
       >
         <UsuariosScreen />
       </LayoutAdmin>
     )
   }
 
-  if (view === 'red' || view === 'perfil' || view === 'usuarios') {
-    const activeView = view === 'red' ? 'red' : 'perfil'
+  if (
+    view === routes.usuario.red ||
+    view === routes.usuario.perfil ||
+    view === routes.usuario.licencias ||
+    view === routes.admin.usuarios
+  ) {
+    const activeView =
+      view === routes.usuario.red
+        ? routes.usuario.red
+        : view === routes.usuario.licencias
+          ? routes.usuario.licencias
+          : routes.usuario.perfil
     return (
       <LayoutUsuario
         activeView={activeView}
         onLogout={handleLogout}
         onNavigate={setView}
       >
-        {activeView === 'red' ? <RedScreen /> : <PerfilScreen />}
+        {activeView === routes.usuario.red ? (
+          <RedScreen />
+        ) : activeView === routes.usuario.licencias ? (
+          <LicenciasScreen />
+        ) : (
+          <PerfilScreen />
+        )}
       </LayoutUsuario>
     )
   }
@@ -56,10 +96,19 @@ function App() {
     <AuthScreen
       key={view}
       initialView={view}
-      onHome={() => setView('landing')}
-      onAuthenticated={(authenticatedRole) =>
-        setView(authenticatedRole === 'ROLE_ADMINISTRADOR' ? 'usuarios' : 'perfil')
-      }
+      sponsorUsername={inviterUsername ?? undefined}
+      onHome={() => {
+        clearInvitePath()
+        setView(routes.home)
+      }}
+      onAuthenticated={(authenticatedRole) => {
+        clearInvitePath()
+        setView(
+          authenticatedRole === 'ROLE_ADMINISTRADOR'
+            ? routes.admin.usuarios
+            : routes.usuario.perfil,
+        )
+      }}
     />
   )
 }

@@ -6,7 +6,7 @@ import { registerUser } from '../application/usecase/register'
 
 type AuthState = {
   token: string | null
-  user: Pick<AuthSessionDto, 'id' | 'email' | 'rol'> | null
+  user: Pick<AuthSessionDto, 'id' | 'email' | 'rol' | 'username'> | null
   status: 'idle' | 'loading' | 'succeeded' | 'failed'
   error: string | null
 }
@@ -46,6 +46,7 @@ const authSlice = createSlice({
             id: action.payload.id,
             email: action.payload.email,
             rol: action.payload.rol,
+            username: action.payload.username,
           }
           state.status = 'succeeded'
           state.error = null

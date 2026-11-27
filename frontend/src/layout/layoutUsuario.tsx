@@ -2,8 +2,9 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 import Header from '../components/nav/header'
 import SidebarUsuario from '../components/nav/sidebarUsuario'
+import { routes } from '../routes'
 
-type UsuarioView = 'perfil' | 'red'
+type UsuarioView = (typeof routes.usuario)[keyof typeof routes.usuario]
 
 type LayoutUsuarioProps = {
   activeView: UsuarioView

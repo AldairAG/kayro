@@ -1,4 +1,6 @@
-type UsuarioView = 'perfil' | 'red'
+import { routes } from '../../routes'
+
+type UsuarioView = (typeof routes.usuario)[keyof typeof routes.usuario]
 
 type SidebarUsuarioProps = {
   activeView: UsuarioView
@@ -8,8 +10,9 @@ type SidebarUsuarioProps = {
 }
 
 const views: { id: UsuarioView; label: string }[] = [
-  { id: 'perfil', label: 'Mi perfil' },
-  { id: 'red', label: 'Mi red' },
+  { id: routes.usuario.perfil, label: 'Mi perfil' },
+  { id: routes.usuario.red, label: 'Mi red' },
+  { id: routes.usuario.licencias, label: 'Licencias' },
 ]
 
 function SidebarUsuario({ activeView, collapsed, onNavigate, onToggle }: SidebarUsuarioProps) {
@@ -74,17 +77,22 @@ function SidebarUsuario({ activeView, collapsed, onNavigate, onToggle }: Sidebar
                 aria-hidden="true"
                 className="h-5 w-5 shrink-0"
               >
-                {id === 'perfil' ? (
+                {id === routes.usuario.perfil ? (
                   <>
                     <circle cx="12" cy="8" r="3.5" />
                     <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
                   </>
-                ) : (
+                ) : id === routes.usuario.red ? (
                   <>
                     <circle cx="12" cy="5" r="2.5" />
                     <circle cx="6" cy="18" r="2.5" />
                     <circle cx="18" cy="18" r="2.5" />
                     <path d="m10.9 7.3-3.8 8.4m5.9-8.4 3.8 8.4M8.5 18h7" />
+                  </>
+                ) : (
+                  <>
+                    <path d="M4 8.5 12 4l8 4.5-8 4.5-8-4.5Z" />
+                    <path d="M4 12.5 12 17l8-4.5M4 16.5 12 21l8-4.5" />
                   </>
                 )}
               </svg>

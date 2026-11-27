@@ -7,6 +7,8 @@ type AuthFieldProps = {
   autoComplete?: string
   minLength?: number
   required?: boolean
+  defaultValue?: string
+  readOnly?: boolean
 }
 
 function AuthField({
@@ -18,6 +20,8 @@ function AuthField({
   autoComplete,
   minLength,
   required = true,
+  defaultValue,
+  readOnly = false,
 }: AuthFieldProps) {
   return (
     <div>
@@ -32,7 +36,9 @@ function AuthField({
         autoComplete={autoComplete}
         minLength={minLength}
         required={required}
-        className="h-12 w-full rounded-xl border border-[color-mix(in_srgb,var(--border)_35%,var(--background))] bg-(--background) px-4 text-sm text-(--text-primary) outline-none transition placeholder:text-[color-mix(in_srgb,var(--text-primary)_35%,var(--background))] hover:border-[color-mix(in_srgb,var(--border)_65%,var(--background))] focus:border-(--primario) focus:ring-4 focus:ring-[color-mix(in_srgb,var(--primario)_10%,transparent)]"
+        defaultValue={defaultValue}
+        readOnly={readOnly}
+        className="h-12 w-full rounded-xl border border-[color-mix(in_srgb,var(--border)_35%,var(--background))] bg-(--background) px-4 text-sm text-(--text-primary) outline-none transition placeholder:text-[color-mix(in_srgb,var(--text-primary)_35%,var(--background))] hover:border-[color-mix(in_srgb,var(--border)_65%,var(--background))] focus:border-(--primario) focus:ring-4 focus:ring-[color-mix(in_srgb,var(--primario)_10%,transparent)] read-only:bg-(--surface) read-only:cursor-not-allowed"
       />
     </div>
   )

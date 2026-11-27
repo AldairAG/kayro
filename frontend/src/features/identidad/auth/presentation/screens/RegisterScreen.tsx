@@ -9,6 +9,7 @@ type RegisterScreenProps = {
   feedback: string
   feedbackIsError: boolean
   submitting: boolean
+  sponsorUsername?: string
 }
 
 function validatePasswords(form: HTMLFormElement) {
@@ -31,6 +32,7 @@ function RegisterScreen({
   feedback,
   feedbackIsError,
   submitting,
+  sponsorUsername,
 }: RegisterScreenProps) {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -114,9 +116,16 @@ function RegisterScreen({
           id="register-sponsor"
           name="patrocinador"
           label="Nombre del patrocinador"
-          placeholder="Nombre del patrocinador"
+          placeholder={sponsorUsername ? '' : 'Nombre del patrocinador'}
           autoComplete="username"
+          defaultValue={sponsorUsername}
+          readOnly={Boolean(sponsorUsername)}
         />
+        {sponsorUsername && (
+          <p className="-mt-2 text-xs text-[color-mix(in_srgb,var(--text-primary)_58%,var(--background))]">
+            Patrocinador asignado desde el enlace de invitación.
+          </p>
+        )}
 
         <label className="flex cursor-pointer items-start gap-2.5 pt-1 text-xs leading-5 text-[color-mix(in_srgb,var(--text-primary)_65%,var(--background))]">
           <input

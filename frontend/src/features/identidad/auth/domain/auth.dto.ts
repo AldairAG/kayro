@@ -21,5 +21,6 @@ export type AuthResponseDto = {
 
 export type AuthSessionDto = AuthResponseDto & {
   rol: string | null
+  username: string
 }
 

@@ -5,16 +5,23 @@ import { registerUser } from '../../application/usecase/register'
 import ForgotPasswordScreen from './ForgotPasswordScreen'
 import LoginScreen from './LoginScreen'
 import RegisterScreen from './RegisterScreen'
+import { routes } from '../../../../../routes'
 
-type AuthView = 'login' | 'register' | 'forgot-password'
+type AuthView = (typeof routes.auth)[keyof typeof routes.auth]
 
 type AuthScreenProps = {
   initialView?: AuthView
+  sponsorUsername?: string
   onHome: () => void
   onAuthenticated: (role: string | null) => void
 }
 
-function AuthScreen({ initialView = 'login', onHome, onAuthenticated }: AuthScreenProps) {
+function AuthScreen({
+  initialView = routes.auth.login,
+  sponsorUsername,
+  onHome,
+  onAuthenticated,
+}: AuthScreenProps) {
   const [view, setView] = useState<AuthView>(initialView)
   const [notice, setNotice] = useState('')
   const { status, error, login, register, clearFeedback } = useAuth()
@@ -42,7 +49,7 @@ function AuthScreen({ initialView = 'login', onHome, onAuthenticated }: AuthScre
   const feedback =
     notice ||
     (status === 'succeeded'
-      ? view === 'register'
+      ? view === routes.auth.register
         ? 'Tu cuenta se creó correctamente.'
         : 'Iniciaste sesión correctamente.'
       : error || '')
@@ -51,10 +58,10 @@ function AuthScreen({ initialView = 'login', onHome, onAuthenticated }: AuthScre
     setNotice('La recuperación de contraseña aún no está disponible en el servicio de autenticación.')
   }
 
-  if (view === 'register') {
+  if (view === routes.auth.register) {
     return (
       <RegisterScreen
-        onLogin={() => navigate('login')}
+        onLogin={() => navigate(routes.auth.login)}
         onHome={onHome}
         onSubmit={(credentials) => {
           setNotice('')
@@ -63,14 +70,15 @@ function AuthScreen({ initialView = 'login', onHome, onAuthenticated }: AuthScre
         feedback={feedback}
         feedbackIsError={status === 'failed' || Boolean(notice)}
         submitting={status === 'loading'}
+        sponsorUsername={sponsorUsername}
       />
     )
   }
 
-  if (view === 'forgot-password') {
+  if (view === routes.auth.forgotPassword) {
     return (
       <ForgotPasswordScreen
-        onLogin={() => navigate('login')}
+        onLogin={() => navigate(routes.auth.login)}
         onHome={onHome}
         onSubmit={handleForgotPassword}
         feedback={feedback}
@@ -81,8 +89,8 @@ function AuthScreen({ initialView = 'login', onHome, onAuthenticated }: AuthScre
 
   return (
     <LoginScreen
-      onRegister={() => navigate('register')}
-      onForgotPassword={() => navigate('forgot-password')}
+      onRegister={() => navigate(routes.auth.register)}
+      onForgotPassword={() => navigate(routes.auth.forgotPassword)}
       onHome={onHome}
       onSubmit={(credentials) => {
         setNotice('')
