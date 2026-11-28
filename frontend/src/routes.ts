@@ -12,5 +12,6 @@ export const routes = {
   },
   admin: {
     usuarios: 'usuarios',
+    pagos: 'pagos',
   },
 } as const

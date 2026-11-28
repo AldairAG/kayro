@@ -11,6 +11,7 @@ import PerfilScreen from './features/identidad/perfil/presentation/screens/Perfi
 import RedScreen from './features/identidad/red/presentation/screens/RedScreen'
 import UsuariosScreen from './features/identidad/usuario/presentation/screens/UsuariosScreen'
 import LicenciasScreen from './features/identidad/usuario/presentation/screens/Licencias'
+import ConfimacionCompra from './features/home/presentation/screens/ConfimacionCompra'
 import LandingPage from './pages/auth/ladingPage'
 import { routes } from './routes'
 
@@ -52,13 +53,18 @@ function App() {
     return <LandingPage onNavigate={setView} />
   }
 
-  if (view === routes.admin.usuarios && role === 'ROLE_ADMINISTRADOR') {
+  if (
+    (view === routes.admin.usuarios || view === routes.admin.pagos) &&
+    role === 'ROLE_ADMINISTRADOR'
+  ) {
     return (
       <LayoutAdmin
+        activeView={view}
         onLogout={handleLogout}
         onNavigateToUsers={() => setView(routes.admin.usuarios)}
+        onNavigateToPayments={() => setView(routes.admin.pagos)}
       >
-        <UsuariosScreen />
+        {view === routes.admin.pagos ? <ConfimacionCompra /> : <UsuariosScreen />}
       </LayoutAdmin>
     )
   }
@@ -67,7 +73,8 @@ function App() {
     view === routes.usuario.red ||
     view === routes.usuario.perfil ||
     view === routes.usuario.licencias ||
-    view === routes.admin.usuarios
+    view === routes.admin.usuarios ||
+    view === routes.admin.pagos
   ) {
     const activeView =
       view === routes.usuario.red
